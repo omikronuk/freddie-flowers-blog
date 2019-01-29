@@ -44,6 +44,9 @@
                                         <div class="feature__body boxed boxed--border">
                                             <span>{{ $post['created_at'] }}</span>
                                             <h5> {{ $post['title'] }}</h5>
+                                            <p>
+                                                @substr($my_string, 0, 15);
+                                            </p>
                                             <a href="{{ route('post.show', $post['id']) }}">
                                                 Read More
                                             </a>

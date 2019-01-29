@@ -76,19 +76,17 @@
                     @if($post->enable_comments == true)
                     <div class="comments-form">
                         <h4>Leave a comment</h4>
-                        <form class="row">
+                        <form method="post" action="/post/add_comments" class="row">
                             <div class="col-md-6">
                                 <label>Your Name:</label>
-                                <input type="text" name="Name" placeholder="Type name here" />
+                                <input type="text" name="username" placeholder="Type name here" />
                             </div>
-                            <div class="col-md-6">
-                                <label>Email Address:</label>
-                                <input type="email" name="email" placeholder="you@mailprovider.com" />
-                            </div>
+
                             <div class="col-md-12">
                                 <label>Comment:</label>
-                                <textarea rows="4" name="Message" placeholder="Message"></textarea>
+                                <textarea rows="4" name="message" placeholder="Message"></textarea>
                             </div>
+                            <input type="hidden" name="post_id" value="{{ $post->id }}">
                             <div class="col-md-3">
                                 <button class="btn btn--primary" type="submit">Submit Comment</button>
                             </div>

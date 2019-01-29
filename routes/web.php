@@ -18,4 +18,5 @@ Route::resource('post', 'PostController');
 
 Route::get('/admin', 'AdminController@index')->name('admin');
 Route::get('/post/{post}/comment', 'PostController@comments')->name('comments');
+Route::get('/post/add_comments', 'PostController@comments')->name('add_comments');
 //Route::resource('admin', 'AdminController');
