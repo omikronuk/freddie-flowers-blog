@@ -20,3 +20,9 @@ Route::get('/admin', 'AdminController@index')->name('admin');
 
 
 //require __DIR__ . '/posts/posts.php';
+
+Route::group(['prefix' => 'posts'], function() {
+    Route::view('/', 'posts.index');
+    Route::view('/create', 'posts.create');
+    Route::view('/{post}/edit', 'posts.edit');
+});
