@@ -6,16 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    //
-
-    public function __construct()
-    {
-
-    }
-
-
-    public function addComment()
-    {
-
-    }
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'title', 'content', 'category', 'user_id', 'enable_comments'
+    ];
 }

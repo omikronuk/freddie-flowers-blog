@@ -6,16 +6,16 @@
                 <div class="col-md-10 col-lg-8">
                     <article>
                         <div class="article__title text-center">
-                            <h1 class="h2"> {{ $title }}</h1>
-                            <span> {{ $created_at }} in </span>
+                            <h1 class="h2"> {{ $post['title'] }}</h1>
+                            <span> {{ $post['created_at'] }} in </span>
                             <span>
-                                        <a href="#">Web Design</a>
+                                        <a href="#">{{ $post['category'] }}</a>
                                     </span>
                         </div>
                         <!--end article title-->
                         <div class="article__body">
-                            <img alt="Image" src="img/blog-1.jpg" />
-                            {{ $description }}
+                            <img alt="Image" src="http://playground.kawisoft.com/stack2/img/blog-{{ $post['id'] }}.jpg" />
+                            {{ $post['content'] }}
                         </div>
 
                     </article>
@@ -72,6 +72,8 @@
                         </ul>
                     </div>
                     <!--end comments-->
+
+                    @if($post->enable_comments == true)
                     <div class="comments-form">
                         <h4>Leave a comment</h4>
                         <form class="row">
@@ -92,6 +94,7 @@
                             </div>
                         </form>
                     </div>
+                    @endif
                 </div>
             </div>
             <!--end of row-->

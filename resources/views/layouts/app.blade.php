@@ -24,8 +24,8 @@
         <ul class="menu-horizontal">
             @auth
                 <li class="nav-item dropdown">
-                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="{{ route('admin') }}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                       Back to Admin Panel <span class="caret"></span>
+                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="/admin" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                        Browsing as {{ Auth::user()->name }} <span class="caret"></span>
                     </a>
                 </li>
             @endauth

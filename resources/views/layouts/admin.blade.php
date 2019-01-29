@@ -4,7 +4,7 @@
     <meta charset="utf-8">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Site Description Here">
+    <meta name="content" content="Site Description Here">
     <link href="http://playground.kawisoft.com/stack2/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
     <link href="http://playground.kawisoft.com/stack2/css/stack-interface.css" rel="stylesheet" type="text/css" media="all" />
     <link href="http://playground.kawisoft.com/stack2/css/socicon.css" rel="stylesheet" type="text/css" media="all" />
@@ -95,7 +95,7 @@
                 <div class="col-lg-11 col-md-12 text-right text-left-xs text-left-sm">
                     <div class="bar__module">
                         <a href="/admin" class="padding-10 type--uppercase">View All</a>
-                        <a class="btn btn--sm type--uppercase" href="/posts/create">
+                        <a class="btn btn--sm type--uppercase" href="/post/create">
                             <span class="btn__text"> Create Post  </span>
                         </a>
                     </div>

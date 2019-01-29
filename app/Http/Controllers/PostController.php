@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Post;
+use App\User;
+use App\PostComment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -14,27 +17,10 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = ['posts' => [
-            [
-                'id' => 1,
-                'title' => 'sdfasdfas',
-                'description' => 'this is where the description goes',
-                'comments' => 'sdfasdfas',
-                'created_at' => date('d/m/Y'),
-                'category' => 'Marketing'
-            ],
+        $posts = Post::all();
 
-            [
-                'id' => 2,
-                'title' => 'Looking good',
-                'description' => 'this is where the description goes',
-                'comments' => 'sdfasdfas',
-                'created_at' => date('d/m/Y'),
-                'category' => 'Marketing'
-            ]
-        ]];
-
-        return view('home', $posts);
+        return view('home', compact('posts'));
+//        return view('home', ['posts' => $posts]);
     }
 
     /**
@@ -57,18 +43,26 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        $this->middleware('auth');
+        $user = User::find(Auth::id());
+
         $this->validate($request, [
             'title' => 'required|string',
-            'description' => 'required|string|description',
-            'category' => 'required|string|description'
+            'content' => 'required|string',
+            'category' => 'required|string'
         ]);
 
-        $post = Post::create([
-            'title' => $request->title,
-            'description' => $request->description,
-            'category' => $request->category,
-            'user_id' => User::find(Auth::id())
+        $post = new Post([
+            'title' => $request['title'],
+            'content' => $request['content'],
+            'category' => $request['category'],
+            'enable_comments' => empty($request['enable_comments']) ? false : $request['enable_comments'],
+            'user_id' => $user->id
         ]);
+
+        $post->save();
+
+        return redirect('/admin')->with('success', 'Post has been created');
 
     }
 
@@ -80,17 +74,9 @@ class PostController extends Controller
      */
     public function show($id)
     {
-//        $post = Post::findOrFail($id);
-        $post = [
-            'id' => $id,
-            'title' => 'Looking good',
-            'description' => 'this is where the description goes',
-            'comments' => 'sdfasdfas',
-            'created_at' => date('d/m/Y'),
-            'category' => 'Marketing'
-        ];
+        $post = Post::findOrFail($id);
 
-        return view('view_post', $post);
+        return view('view_post', compact('post'));
     }
 
     /**
@@ -99,9 +85,12 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function edit(Post $post)
+    public function edit($id)
     {
 //        $this->middleware('auth');
+        $post = Post::find($id);
+
+        return view('posts.edit', compact('post'));
     }
 
     /**
@@ -111,9 +100,24 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(Request $request, $id)
     {
-        //
+
+        $this->validate($request, [
+            'title' => 'required|string',
+            'content' => 'required|string',
+            'category' => 'required|string'
+        ]);
+
+        $post = Post::find($id);
+        $post->title = $request['title'];
+        $post->content = $request['content'];
+        $post->category = $request['category'];
+        $post->enable_comments = empty($request['enable_comments']) ? false : $request['enable_comments'];
+
+        $post->save();
+
+        return redirect("/post/$id/edit")->with('success', 'Post has been updated');
     }
 
     /**
@@ -122,8 +126,17 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function destroy($id)
     {
-        //
+        $post = Post::find($id);
+        $post->delete();
+
+        return redirect("/admin")->with('success', 'Post has been deleted');
+    }
+
+    public function comments($id) {
+        $comments = PostComment::find($id);
+
+        return view('admin.comments', compact('comments'));
     }
 }

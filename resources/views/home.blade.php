@@ -1,6 +1,27 @@
 @extends('layouts.app')
 @section('content')
-    <section class="space--sm">
+@if (empty($posts))
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12"> <h2> Welcome to Our Blog Site</h2></div>
+            </div>
+            <div class="row justify-content-around">
+                <div class="col-md-12">
+
+                    <div class="boxed bg--secondary boxed--lg boxed--border">
+                        <h4>Quick Tips</h4>
+                        <p>
+                            More blogs coming soon ...!
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    @else
+        <section class="space--sm">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -18,7 +39,7 @@
                                 <div class="masonry__item col-lg-4 col-md-6" data-masonry-filter="{{ $post['category'] }}">
                                     <article class="feature feature-1">
                                         <a href="#" class="block">
-                                            <img alt="Image" src="http://playground.kawisoft.com/stack2/img/blog-2.jpg" />
+                                            <img alt="Image" src="http://playground.kawisoft.com/stack2/img/blog-{{ $post['id'] }}.jpg" />
                                         </a>
                                         <div class="feature__body boxed boxed--border">
                                             <span>{{ $post['created_at'] }}</span>
@@ -53,6 +74,7 @@
             <!--end of row-->
         </div>
         <!--end of container-->
-    </section>  
+    </section>
 
+    @endif
 @endsection

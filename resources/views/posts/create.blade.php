@@ -9,6 +9,15 @@
             </div>
             <div class="row justify-content-around">
                 <div class="col-md-5">
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li class=" alert alert-danger">{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div><br />
+                    @endif
                     <div class="boxed bg--secondary boxed--lg boxed--border">
                         <h4>Quick Tips</h4>
                         <p>
@@ -25,13 +34,26 @@
 
                 <div class="col-md-6">
                     <form method="post" action="{{ route('post.store') }}" class="row">
+                        @csrf
+
                         <div class="col-md-12">
                             <label>Title:</label>
-                            <input type="text" name="title" placeholder="eg: caring for your flowers" class="validate-required">
+                            <input type="text" name="title" placeholder="eg: caring for your flowers" value="" class="validate-required">
+                        </div>
+                        <div class="col-md-12">
+                            <label>Title:</label>
+                            <input type="text" name="category" placeholder="categorise your posts" class="validate-required">
                         </div>
                         <div class="col-md-12">
                             <label>Content:</label>
-                            <textarea name="description" placeholder="Content" class="validate-required" rows="4"></textarea>
+                            <textarea name="content" placeholder="Content" class="validate-required" rows="4"></textarea>
+                        </div>
+                        <div class="col-md-12">
+                            <span class="col-md-6">Enable Comments</span>
+                            <div class="input-checkbox">
+                                <input id="checkbox" type="checkbox" value="1" name="enable_comments" />
+                                <label for="checkbox"></label>
+                            </div>
                         </div>
                         <div class="col-md-12">
                             <button type="submit" class="btn btn--primary">Send Form</button>
