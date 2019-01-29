@@ -1,0 +1,58 @@
+@extends('layouts.app')
+@section('content')
+    <section class="space--sm">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="masonry">
+                        <div class="masonry-filter-container d-flex align-items-center">
+                            <span>Category:</span>
+                            <div class="masonry-filter-holder">
+                                <div class="masonry__filters" data-filter-all-text="All Categories"></div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="masonry__container row">
+                            <div class="masonry__item col-lg-4 col-md-6"></div>
+                            @foreach ($posts as $post)
+                                <div class="masonry__item col-lg-4 col-md-6" data-masonry-filter="{{ $post['category'] }}">
+                                    <article class="feature feature-1">
+                                        <a href="#" class="block">
+                                            <img alt="Image" src="http://playground.kawisoft.com/stack2/img/blog-2.jpg" />
+                                        </a>
+                                        <div class="feature__body boxed boxed--border">
+                                            <span>{{ $post['created_at'] }}</span>
+                                            <h5> {{ $post['title'] }}</h5>
+                                            <a href="{{ route('post.show', $post['id']) }}">
+                                                Read More
+                                            </a>
+                                        </div>
+                                    </article>
+                                </div>
+                            @endforeach
+                            <!--end item-->
+
+                        </div>
+                        <!--end of masonry container-->
+
+
+                        <div class="pagination">
+                            <a class="pagination__prev" href="#" title="Previous Page">&laquo;</a>
+                            <ol>
+                                <li class="pagination__current">1</li>
+                                <li>
+                                    <a href="#">2</a>
+                                </li>
+                            </ol>
+                            <a class="pagination__next" href="#" title="Next Page">&raquo;</a>
+                        </div>
+                    </div>
+                    <!--end masonry-->
+                </div>
+            </div>
+            <!--end of row-->
+        </div>
+        <!--end of container-->
+    </section>  
+
+@endsection
